@@ -1,0 +1,36 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+import java.util.Set;
+import java.util.HashSet;
+ 
+public class Main {
+	
+	public static void main(String[] args) throws IOException {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int num =Integer.parseInt(br.readLine());
+        Set<String> set = new HashSet<>();
+        int count =0;
+        for(int i=0;i<num;i++){
+            String str =br.readLine();          
+            if(str.equals("ENTER")){
+                set.clear(); //집합에 clear() 연산자!!
+               
+            }else{
+                if(set.contains(str)){
+                    continue;
+                    
+                }else{
+                    
+                    count++;
+                    
+                }
+                set.add(str);//집합이니 중복 알아서 제거됨!
+                
+            }
+        }
+        System.out.print(count);
+    }
+}
