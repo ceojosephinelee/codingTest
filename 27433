@@ -1,0 +1,26 @@
+//📌 2. 팩토리얼 값이 int 범위를 언제 넘나?
+//int는 12!까지만 안전하고, 그 이상은 무조건 overflow가 납니다.
+//그래서 입력 조건에 N ≥ 13이 될 수 있다면 반드시 long을 써야 해요.
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+ 
+public class Main {
+ 
+	public static void main(String[] args) throws IOException {
+        
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
+ 		int num =Integer.parseInt(br.readLine());
+        System.out.print(fac(num));
+    }
+    public static long fac(int a){
+        if(a<=0){
+            return 1;//return 하면 걍 함수밖으로 나감
+            
+        }else{
+            return a*fac(a-1);
+        }
+    }
+}
