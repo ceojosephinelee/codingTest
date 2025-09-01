@@ -4,15 +4,15 @@ import java.io.IOException;
 import java.util.StringTokenizer;
  
 public class Main {
-    public static StringBuilder sb;
+    public static StringBuilder sb;//항상 주의!!!! 새로운 함수를 선언하면 그 함수 내에서 사용되는 변수들 항상 밖에 선언!!
 	public static void main(String[] args) throws IOException {
         
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String str;
  
- 		while((str=br.readLine())!=null){
-            int num = Integer.parseInt(str);
-            int len = (int)Math.pow(3,num);
+ 		while((str=br.readLine())!=null){ //이 형태 암기
+            int num = Integer.parseInt(str); //다시 br.readLine() 호출하지 않도록 주의!
+            int len = (int)Math.pow(3,num); //Math함수는 선언 필요 없이 그냥 사용. (int) 선언해줘야하는 이유 : Math.pow()는 Double 반환!하므로
             sb = new StringBuilder();
             for(int i=0;i<len;i++){
                 sb.append('-');                
@@ -23,14 +23,14 @@ public class Main {
             
         }
     }
-    public static void func(int start, int size){
+    public static void func(int start, int size){ //재귀 함수 만들 떄는 뭘 변수로 둘지! 뭘 반복하는지! 2-3번의 과정 직접 해보면서 파악. 경계값 모두 변수
         if(size==1){
             return;
         }
         int newSize = size/3;
         
         for(int i= start+newSize;i<start+newSize*2;i++){
-            sb.setCharAt(i, ' ');
+            sb.setCharAt(i, ' ');  // 대체해주는 메소드! setCharAt(Char 타입 대체해주는 메소드)
             
         }
         func(start, newSize);
