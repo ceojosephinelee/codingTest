@@ -1,0 +1,73 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+ 
+public class Main {
+    static int[] arr, tmp;
+    static int count, result, N, K;
+	public static void main(String[] args) throws IOException {
+        
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); 
+ 		String str = br.readLine();
+		StringTokenizer st = new StringTokenizer(str," ");
+		N = Integer.parseInt(st.nextToken());
+		K = Integer.parseInt(st.nextToken());
+        arr = new int[N];
+        tmp = new int[N];
+        count =0;
+        result =-1;
+        st = new StringTokenizer(br.readLine()," ");
+        for(int i =0;i<N;i++){
+            
+            arr[i]=Integer.parseInt(st.nextToken());
+        }
+        mergeSort(0,N-1);
+        System.out.print(result);
+        
+    }
+    public static void mergeSort(int s, int e){
+        if(s<e){
+            int m = (s+e)/2;
+            mergeSort(s,m);
+            mergeSort(m+1,e);
+            merge(s,m,e); //합병
+            
+        }
+    }
+    public static void merge(int s, int m, int e){
+        int t=s; //tmp 배열에 저장할 위치!
+        int index1 =s;
+        int index2 = m+1;
+        while(index1<=m && index2<=e){
+            if(arr[index1]<=arr[index2]){
+                tmp[t]=arr[index1];
+                index1++;
+                t++;
+            }else{
+                tmp[t]=arr[index2];
+                index2++;
+                t++;                
+            }
+        }
+        while(index1<=m){
+            tmp[t]=arr[index1];
+            index1++;
+            t++;
+        }
+        while(index2<=e){
+            tmp[t]=arr[index2];
+            index2++;
+            t++;
+        }
+        
+        for (int i = s; i <= e; i++) { //다시 tmp->arr로 옮기면서 k번째 저장된 수 찾기
+            count++;
+            if (count == K) {
+                result = tmp[i];
+                return; // K번째 저장된 수를 찾았으면 끝냄
+            }
+            arr[i] = tmp[i];
+        } 
+    }
+}
