@@ -18,7 +18,7 @@ public class Main {
 		int M = Integer.parseInt(st.nextToken());
         sb = new StringBuilder();
         
-        arr = new int[M];
+        arr = new int[M]; // 깊이 M만큼 담음.
         visit = new boolean[N]; //방문 배열(true, false) 선언
         dfs(N,M,0); (0은 깊이)
         System.out.println(sb);
