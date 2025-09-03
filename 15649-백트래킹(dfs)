@@ -19,25 +19,25 @@ public class Main {
         sb = new StringBuilder();
         
         arr = new int[M];
-        visit = new boolean[N];
-        dfs(N,M,0);
+        visit = new boolean[N]; //방문 배열(true, false) 선언
+        dfs(N,M,0); (0은 깊이)
         System.out.println(sb);
     }
     
     public static void dfs(int N, int M, int depth){
-        if(depth==M){
+        if(depth==M){ //깊이 M까지 다 돌았을 때
             for(int i : arr){
-                sb.append(i).append(' ');
+                sb.append(i).append(' '); //arr 배열 탐색 순서대로 출력
             }
             sb.append('\n');
             return;
         }
         for(int i=0;i<N;i++){
             if(!visit[i]){
-                visit[i]=true;
-                arr[depth]=i+1;//?
-                dfs(N,M,depth+1);
-                visit[i]=false;
+                visit[i]=true; //방문하지 않았던 배열이면 true로 바꿔주기
+                arr[depth]=i+1;// depth를 인덱스로하여 i+1 저장. 
+                dfs(N,M,depth+1); //다음 자식 노드 방문
+                visit[i]=false; //자식노드 방문하고 돌아오면 다시 방문 상태 false
             }
         }
     }
