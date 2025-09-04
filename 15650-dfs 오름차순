@@ -1,3 +1,5 @@
+//중복 가능 + 순서 중요(순열) + 오름차순(이므로 중복될 일 없음-> 방문 배열 만들 필요 없음)
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
@@ -16,21 +18,22 @@ public class Main {
 		N = Integer.parseInt(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
         sb = new StringBuilder();
-        arr=new int[M];
-        dfs(1,0);
+        arr=new int[M]; //
+//방문 배열 체크할 필요x.왜?
+        dfs(1,0); // 값은 1부터, 깊이는 0부터
         System.out.print(sb);
     }
-    public static void dfs(int at,int depth){
-        if(depth == M){
+    public static void dfs(int at,int depth){ //이 정도 형태는 그냥 암기
+        if(depth == M){ 
             for(int i=0;i<M;i++){
                 sb.append(arr[i]).append(' ');
             }
             sb.append('\n');
             return;
         }
-        for(int i =at;i<=N;i++){
+        for(int i =at;i<=N;i++){ //at부터 N까지 배열 arr에 오름차순으로 저장됨.
             arr[depth]=i;
-            dfs(i+1,depth+1);
+            dfs(i+1,depth+1); //자식 노드는 무조건 값이 i보다 커야함(오름차순)
         }
     
         
