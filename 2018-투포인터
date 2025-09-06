@@ -9,7 +9,8 @@ public class Main {
         
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int num =Integer.parseInt(br.readLine());
-        
+
+
         int start_index=1;
         int end_index=1;
         int sum =1;//끝 인덱스가 1이므로
