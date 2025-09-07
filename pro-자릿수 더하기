@@ -1,0 +1,12 @@
+//여러가지 풀이 방법 있음
+class Solution {
+    public int solution(int n) {
+        int answer = 0;
+        String str = String.valueOf(n);
+        String[] s = str.split("");
+        for(int i =0;i<str.length();i++){
+            answer+= Integer.parseInt(s[i]);
+        }
+        return answer;
+    }
+}
