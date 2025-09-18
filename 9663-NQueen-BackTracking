@@ -14,6 +14,7 @@ public class Main {
 		N = Integer.parseInt(br.readLine());
         arr = new int[N];
         BT(0);//행의 위치->1번째 줄부터 넣기
+		System.out.print(count);
     }
     public static void BT(int row){
         if(row==N){
