@@ -1,0 +1,32 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+
+public class Main {
+ 
+	public static void main(String[] args) throws IOException {
+        
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); 
+ 		int room = Integer.parseInt(br.readLine());
+        int[] studentArr= new int[room];
+        long sum =0; // 그냥 무조건 long 쓰는 습관!!!!!!!!!!
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        for(int i =0;i<room;i++){
+            studentArr[i]=Integer.parseInt(st.nextToken());       
+        }
+        st = new StringTokenizer(br.readLine()," ");
+        int B = Integer.parseInt(st.nextToken());
+        int C = Integer.parseInt(st.nextToken());
+        for(int i =0;i<room;i++){
+            if(studentArr[i]>B){   //이런 예외 처리 굉장히 주의!!!!!!!!!!!!!11
+                if((studentArr[i]-B)%C==0){
+                    sum+=(studentArr[i]-B)/C;                    
+                }else{
+                    sum+=(studentArr[i]-B)/C+1;
+                }
+            }           
+        }
+        System.out.println(room+sum);        
+    }
+}
