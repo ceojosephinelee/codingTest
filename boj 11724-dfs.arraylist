@@ -43,7 +43,7 @@ public class Main {
         if(visited[v]){
             return; //방문했으면 더이상 탐색하지 않음
         }
-        visited[v]=true; // 방문했으니 true
+        visited[v]=true; //방문안했다면 이제 방문했으니 true
         for(int i:A[v]){ // 한 개의 인접리스트 안에서 
             if(!visited[i]){ //연결 노드 중 방문하지 않았던 노드만 탐색하기
                 DFS(i);
