@@ -1,0 +1,32 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+ 
+public class Main {
+ 
+	public static void main(String[] args) throws IOException {
+        
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
+ 		String str = br.readLine();
+        String[] strMinus = str.split("-");
+        int firstSum =0;
+        int restSum =0;
+        for(int i =0;i<strMinus.length;i++){
+            String[] strPlus = strMinus[i].split("[+]"); //"\\+"도 가능 주의!!!!!!!!!!!!!!1
+            
+            if(i==0){
+                for(int k =0;k<strPlus.length;k++){
+                    firstSum+=Integer.parseInt(strPlus[k]);
+                }               
+            }else{
+                for(int k =0;k<strPlus.length;k++){
+                    restSum+=Integer.parseInt(strPlus[k]);
+                }                
+            }
+    
+        }
+        System.out.print(firstSum-restSum);
+    }
+}
