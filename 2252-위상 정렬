@@ -1,0 +1,56 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+ 
+public class Main {
+ 
+	public static void main(String[] args) throws IOException {
+        
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
+ 		String str = br.readLine();
+		StringTokenizer st = new StringTokenizer(str," ");
+		int N = Integer.parseInt(st.nextToken()); //학생 수
+		int M = Integer.parseInt(st.nextToken());//비교 횟수
+        ArrayList<Integer>[] A = new ArrayList[N+1];//인접 리스트 선언
+        for(int i =1;i<=N;i++){
+            A[i]=new ArrayList<Integer>();            
+        }
+       
+        int[] enter = new int[N+1]; //진입 차수 배열 선언
+        for(int i =0;i<M;i++){
+            st = new StringTokenizer(br.readLine()," ");
+            int a = Integer.parseInt(st.nextToken()); 
+		    int b = Integer.parseInt(st.nextToken());//a가 b보다 앞에 있어야함. a->b 
+            //인접리스트 A[i]
+            A[a].add(b);
+            enter[b]++;
+        }
+        //위상 정렬 수행하기(큐 선언 후 enter[i]=0인 i값 queue에 offer 
+        //queue의 i값이 가리키는 것들 enter[j]--후 queue에서 i poll)
+        Queue<Integer> queue = new LinkedList<>();
+        for(int i=1;i<=N;i++){
+            if(enter[i]==0){
+                queue.offer(i);
+                
+            }
+        }
+        //큐가 빌 때까지
+        while(!queue.isEmpty()){
+            int now = queue.poll();
+            System.out.print(now+" ");
+            for(int i : A[now]){ //list도 향상된 for문 사용가능?
+                enter[i]--;
+                if(enter[i]==0){
+                    queue.offer(i);
+                }
+                
+            }
+            
+        }
+    }
+}
