@@ -1,0 +1,52 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+ 
+public class Main {
+	
+	public static void main(String[] args) throws IOException {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int N = Integer.parseInt(br.readLine());
+		int[] arr = new int[N];		
+		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+		for(int i = 0; i < N; i++) {
+			arr[i] = Integer.parseInt(st.nextToken());
+		}
+		Arrays.sort(arr);
+		
+		int M = Integer.parseInt(br.readLine());		
+		st = new StringTokenizer(br.readLine(), " ");
+        int[] find = new int[M];
+        StringBuilder sb = new StringBuilder();
+       
+		for(int i = 0; i < M; i++) {
+            find[i]= Integer.parseInt(st.nextToken());
+            boolean found =false;
+            int start =0;
+            int end = N-1; //주의!!!!!!!!!!!!M이 아니라 N기준으로!!!!!!
+            
+            while(start<=end){
+                int mid = (start+end)/2; //mid도 매번 갱신해줘야함!!!
+                if(arr[mid]==find[i]){ 
+                    found = true;
+                    break;
+                }else if(arr[mid]>find[i]){
+                    end = mid-1;   
+                }else{
+                    start = mid+1;
+                }
+            }
+            if(found){
+                sb.append(1).append('\n');
+            }else{
+                sb.append(0).append('\n');
+            }
+        } 
+        System.out.print(sb);
+        
+    }
+}
