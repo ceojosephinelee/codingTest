@@ -1,3 +1,4 @@
+//여러가지 방법으로 풀 수 있음!! D[N]=D[N-1]+D[N-2]도 가능
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
