@@ -1,0 +1,49 @@
+굉장히 주의 사항.함정이 많다! 주어진 수가 값이 같더라도 인덱스 값이 다르면 다른 수라고 함!!!! 같은 수는 인덱스가 같은 수를 의미함!!!.
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+import java.util.Arrays;
+ 
+public class Main {
+ 
+	public static void main(String[] args) throws IOException {
+        
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
+		StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        long[] arr = new long[N];//주의!!! 실제 코딩테스트에서는 무조건 걍 long쓰는 습관!
+        for(int i=0;i<N;i++){
+            arr[i] = Long.parseLong(st.nextToken());           
+        }
+        Arrays.sort(arr);
+        int count =0;
+        for(int k=0;k<N;k++){
+            long find = arr[k];
+            int i =0;
+            int j =N-1;
+            //투 포인터 알고리즘
+            while(i<j){
+                if(arr[i]+arr[j]==find){
+                    //find는 서로 다른 수의 합이어야함& 본인 포함 안됨.
+                    if(i!=k && j!=k){ //주어진 N개의 수 중 중복된 수가 있을 수 있음! 인덱스 중복되지 않게!!
+                        count++;
+                        break;
+                    }else if(i==k){ //자기 자신(인덱스) 가리키면 건너뛰기!
+                        i++;
+                    }else if(j==k){ //자기 자신(인덱스) 가리키면 건너뛰기!
+                        j--;
+                    }
+                    
+                }else if(arr[i]+arr[j]>find){
+                    j--;//투포인터 원칙. 걍 외워
+                    
+                }else{
+                    i++;
+                }
+            }  
+        }
+        System.out.print(count);
+        
+    }
+}
