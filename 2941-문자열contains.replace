@@ -22,3 +22,27 @@ public class Main {
     }
     
 }
+
+//여러가지 풀이 있음
+//조건문. contains. replace
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+public class Main {
+ 
+	public static void main(String[] args) throws IOException {
+        
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
+ 		String str = br.readLine();
+        String[] croat = {"c=","c-","dz=","d-","lj","nj","s=","z="}; //배열은 []이 아니라 {}이라고 함...
+        
+        for(String i : croat){
+            str = str.replace(i, "a");//replace나 replaceAll이나 전부 바꿔줌!
+        }
+        System.out.print(str.length());
+    
+    }
+    
+}
