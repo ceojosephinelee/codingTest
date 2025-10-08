@@ -1,0 +1,45 @@
+//시간복잡도 고려! O(N^2)하면 안됨.-->애초에  10000001 크기의 배열 선언. 1000000까지 수 중 소수를 false라고 판별해놓은 배열
+//소수 들어올 때 앞부분 절반이 소수라면 뒷 부분 절반도 소수인지 확인한 후  count
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+ 
+public class Main {
+ 
+    static boolean[] isPrime= new boolean[1000001];
+	public static void main(String[] args) throws IOException {
+        
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
+        int T = Integer.parseInt(br.readLine());
+        findPrime();
+        for(int i=0;i<T;i++){
+            int count =0;
+            int num = Integer.parseInt(br.readLine());   
+            for(int j=2;j<=num/2;j++){ //범위 주의!!
+                if(!isPrime[j]){
+                    if(!isPrime[num-j]){
+                        count++;
+                    }
+                }
+            }
+            System.out.println(count);
+        }
+        //처음 잘못한 설계: 소수 판별 함수. 주어진 수의 절반까지 소수 개수 세는 함수. 아님 그게 소수라면 /뺏을 때 나머지 부분도 소수인지 체크해줘야함.-> 소수 개수 세는 함수(true 개수 세기)->에레토스테네스의 체
+        
+    }
+    public static void findPrime(){ //isPrime 배열에서 소수인 숫자들만 false로 두는 함수. 에라토스테네스의 체
+        isPrime[0]=true;
+        isPrime[1]=true;
+        for(int i=2;i<Math.sqrt(isPrime.length);i++){
+            if(!isPrime[i]){
+                for(int j =i*i;j<isPrime.length;j+=i){
+                    isPrime[j]=true;
+                }
+            }
+        }
+        
+    }
+
+}
