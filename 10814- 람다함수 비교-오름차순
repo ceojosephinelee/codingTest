@@ -1,0 +1,30 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+import java.util.Arrays;
+
+public class Main {
+ 
+	public static void main(String[] args) throws IOException {
+        
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+         
+        int N = Integer.parseInt(br.readLine());
+        //2차원 배열에 저장. 나이순으로 sort. 가입한 순서는 고려할 필요 없음....?.list에 저장(integer.string 이렇게 타입 다르니까?)
+        //아니면 String 타입으로 2차원 배열도 가능!!
+        String[][] arr = new String[N][2];
+        
+        for(int i =0;i<N;i++){
+            StringTokenizer st = new StringTokenizer(br.readLine()," ");
+		        arr[i][0] = st.nextToken();
+		        arr[i][1] = st.nextToken();
+        }
+        Arrays.sort(arr,(o1, o2)->Integer.parseInt(o1[0])-Integer.parseInt(o2[0]));
+        StringBuilder sb = new StringBuilder();//시간복잡도 줄이는 용도
+        for(int i =0;i<N;i++){
+            sb.append(arr[i][0]).append(" ").append(arr[i][1]).append('\n');
+        }
+        System.out.print(sb);
+    }
+}
