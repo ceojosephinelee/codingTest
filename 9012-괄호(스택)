@@ -1,0 +1,44 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+import java.util.Stack;
+ 
+public class Main {
+ 
+	public static void main(String[] args) throws IOException {
+        
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
+ 		int N = Integer.parseInt(br.readLine());
+        for(int i =0;i<N;i++){
+            String str = br.readLine(); //String으로 받고 char로 쪼개기
+            Stack<Integer> stack = new Stack<>(); //정수 push
+            String answer = "";
+            for(int j=0;j<str.length();j++){
+                
+                if(str.charAt(j)=='('){
+                    stack.push(1);
+                }else{
+                    if(stack.isEmpty()){
+                        //answer="NO";//주의!!!
+                        stack.push(2); //마지막 조건 만족하려면 뭐라도 stack에 있어야함.
+                        break;
+                    }else{
+                        stack.pop();
+                    }
+                }
+                
+            }
+            //다 끝나고 점검
+            if(stack.isEmpty()){
+                answer ="YES";
+            }else{
+                answer ="NO";
+            }
+            System.out.println(answer);
+            
+            
+        }
+    }
+}
