@@ -13,7 +13,8 @@ public class Main {
  		String str = br.readLine();
         StringBuilder sb = new StringBuilder();
         sb.append(str);
-        
+
+
         if(sb.reverse().toString().equals(str)){  //주의!! StringBuilder와 String을 비교하려면 StringBuilder.toString()해야힘.! 반대는 불가능
             System.out.print(1);
         }else{
