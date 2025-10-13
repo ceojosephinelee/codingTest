@@ -1,3 +1,4 @@
+//원소들의 입장에서 어떻게 들어가는지 생각!!
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
