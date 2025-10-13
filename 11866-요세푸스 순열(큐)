@@ -1,0 +1,40 @@
+//원순열: 큐
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+import java.util.Queue;
+import java.util.ArrayDeque;
+ 
+public class Main {
+ 
+	public static void main(String[] args) throws IOException {
+        
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
+ 		String str = br.readLine();
+		StringTokenizer st = new StringTokenizer(str," ");
+		int N = Integer.parseInt(st.nextToken());
+		int K = Integer.parseInt(st.nextToken());
+        Queue<Integer> que = new ArrayDeque<>(); //주의!!!! Queue라고 하면 안됨!
+        StringBuilder sb = new StringBuilder();
+        for(int i =0;i<N;i++){
+            que.offer(i+1);
+        }
+        while(!que.isEmpty()){
+            for(int i =0;i<K-1;i++){
+                que.offer(que.poll());
+                
+            }
+            if(que.size()==1){
+                sb.append(que.poll());
+                
+            }else{
+                sb.append(que.poll()).append(", ");//띄어쓰기 주의
+                
+            }
+            
+        }
+        System.out.println("<"+sb+">");
+    }
+}
