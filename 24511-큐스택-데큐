@@ -1,0 +1,52 @@
+//결국엔 스택도 큐도 아닌 데큐 문제였따................
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+import java.util.Stack;
+import java.util.Deque; //주의!! Queue가 아니라 Deque엿다...
+import java.util.ArrayDeque;
+ 
+public class Main {
+ 
+	public static void main(String[] args) throws IOException {
+        
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+ 
+ 		int N = Integer.parseInt(br.readLine());
+        Deque<Integer> dq = new ArrayDeque<>();
+        Stack<Integer> stack = new Stack<>();
+        //전부 다 우선 배열로 받기
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");//2번째 줄 입력
+        int[] qstack = new int[N+1];
+        int[] B = new int[N+1];
+        for(int i =0;i<N;i++){
+            qstack[i] = Integer.parseInt(st.nextToken());   
+        }
+        StringTokenizer st1 = new StringTokenizer(br.readLine()," ");//3번째 줄 입력
+        for(int i =0;i<N;i++){
+            B[i]= Integer.parseInt(st1.nextToken());
+        }
+        int M = Integer.parseInt(br.readLine());
+        int[] C = new int[M+1];
+        StringTokenizer st2 = new StringTokenizer(br.readLine()," ");//5번째 줄 입력
+        for(int i =0;i<M;i++){
+            C[i] = Integer.parseInt(st2.nextToken());
+        }
+        
+        for(int i=0;i<N;i++){
+            if(qstack[i]==0){
+                dq.addLast(B[i]);
+            }else{
+                stack.add(B[i]);
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for(int i =0;i<M;i++){
+            dq.addFirst(C[i]);
+            sb.append(dq.pollLast()).append(" ");
+            
+        }
+        System.out.print(sb);
+    }
+}
