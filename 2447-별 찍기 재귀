@@ -1,0 +1,60 @@
+//2차원 배열을 채우고, 빈 값 대입하고, 결과 배열을 sb로 append해서 출력
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+ 
+public class Main {
+    public static char[][] arr;
+	public static void main(String[] args) throws IOException {
+        
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+ 		int N = Integer.parseInt(br.readLine()); //N은 3의 거듭제곱
+        //다 채우기.2차원 배열
+        arr = new char[N][N]; //배열 불변인데...char 선언해야하나? StringBuilder 사용 가능?
+        
+        for(int i =0;i<N;i++){
+            for(int j =0;j<N;j++){
+                arr[i][j]='*';
+            }
+        }
+        star(0, 0, N);
+        StringBuilder sb = new StringBuilder();
+        for(int i =0;i<N;i++){
+            for(int j =0;j<N;j++){
+                sb.append(arr[i][j]);
+            }
+            sb.append('\n');
+        }
+        System.out.println(sb);
+        
+    }
+    public static void star(int startX,int startY,int size){//x좌표.y좌표 시작값& size
+        //탈출 조건
+        if(size==1){
+            return;
+        }
+        //이 함수에서 일어나는 일(중간 비우기)
+        int newSize = size/3;
+        for(int i = startX+newSize;i<startX+newSize*2;i++){
+            for(int j = startY+newSize;j<startY+newSize*2;j++){
+                //배열은 어떻게 비우지? list 선언해야 하나?
+                arr[i][j]=' ';
+            }
+        }
+        //재귀 호출
+        star(startX,startY,newSize);
+        star(startX,startY+newSize,newSize);
+        star(startX,startY+newSize*2,newSize);
+        star(startX+newSize,startY,newSize);
+        //start(3,3,newSize);
+        star(startX+newSize,startY+newSize*2,newSize);
+        star(startX+newSize*2,startY,newSize);
+        star(startX+newSize*2,startY+newSize,newSize);
+        star(startX+newSize*2,startY+newSize*2,newSize);
+        
+        
+    }
+}
+    
