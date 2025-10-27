@@ -1,3 +1,5 @@
+//완전 탐색이 아니라 백트래킹. 숫자 순서는 고정! 연산자만 dfs해주면 됨!!
+//주의 사항(변수명과 배열 명도 동일하지 않게!! 주의!!)
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
@@ -21,7 +23,7 @@ public class Main {
         for(int i =0;i<4;i++){
             operator[i]=Integer.parseInt(st.nextToken()); //+, - ,x, /
         }
-        max=Integer.MIN_VALUE;
+        max=Integer.MIN_VALUE; //0 이런거 하면 안됨. 음수도 되니까
         min=Integer.MAX_VALUE;
         calculator(number[0], 1);
         
@@ -36,7 +38,7 @@ public class Main {
         }
         for(int i=0;i<4;i++){
             if(operator[i]>0){
-                operator[i]--;
+                operator[i]--; //연산자 사용 후 사용 처리
                 switch(i){
                     case 0:
                         calculator(num+number[numIndex], numIndex+1);
@@ -51,7 +53,7 @@ public class Main {
                         calculator(num/number[numIndex], numIndex+1);
                         break;
                 }
-                operator[i]++;
+                operator[i]++; //한 차례 dfs 끝나면 원상 복구
                 
             }
             
