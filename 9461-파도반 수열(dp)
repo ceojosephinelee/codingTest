@@ -1,0 +1,27 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+ 
+public class Main {
+ 
+	public static void main(String[] args) throws IOException {
+        
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    long[] D = new long[101]; //타입 주의!!!
+ 		int T = Integer.parseInt(br.readLine());
+        D[1]=1;
+        D[2]=1;
+        D[3]=1;
+        D[4]=2;
+        D[5]=2;
+        D[6]=3;
+        for(int i =0;i<T;i++){
+            int N = Integer.parseInt(br.readLine());          
+            for(int j =6;j<=N;j++){
+                D[j]=D[j-1]+D[j-5]; //점화식 2개 가능(답 2개)
+            }
+            System.out.println(D[N]);
+        }
+    }
+}
