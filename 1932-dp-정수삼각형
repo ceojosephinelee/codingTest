@@ -34,6 +34,7 @@ public class Main {
                 }
             }
         }
+//역발상이기 때문에 결국 최종줄에서 값이 최대인 것만 구하면 됨!!!!
         int max=0;
         for(int i=1; i<=N; i++) {
         	if(max<D[N][i]){
