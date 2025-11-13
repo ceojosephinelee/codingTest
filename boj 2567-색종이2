@@ -1,0 +1,48 @@
+//상하좌우로 경계선 체크하는 아이디어!!!!
+//list로도 풀 수 있음(경곗값을 체크하는 게 중요). 전치행렬도 사용 가능
+//재귀함수로도 풀 수 있음.
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.util.StringTokenizer;
+ 
+public class Main {
+ 
+	public static void main(String[] args) throws IOException {
+        
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        boolean[][] arr = new boolean[100][100];
+  		int num = Integer.parseInt(br.readLine());
+        for(int i =0;i<num;i++){
+            StringTokenizer st = new StringTokenizer(br.readLine()," ");
+            int x = Integer.parseInt(st.nextToken());
+            int y = Integer.parseInt(st.nextToken());
+            for(int j =x;j<=x+9;j++){
+                for(int k =y;k<=y+9;k++){
+                    //일단 직사각형이 존재하는 부분을 배열에 true로 채워넣고
+                    if(!arr[j][k]){
+                        arr[j][k]=true;
+                    }
+                }
+            }
+        }
+        int[][] d = {{0,1},{0,-1},{1,0},{-1,0}};
+        int count =0;
+        for(int i =0;i<100;i++){
+            for(int j =0;j<100;j++){
+                if(arr[i][j]){
+                    for(int k =0;k<4;k++){
+                        int xnum =d[k][0];
+                        int ynum = d[k][1];
+                        if(i+xnum <0 || i+xnum>99 ||j+ynum<0 ||j+ynum>99){ // 값이 한계선 넘어가려고 하면 경곗값으로 count
+                            count++;
+                        }else if(!arr[i+xnum][j+ynum]){
+                            count++;  
+                        }
+                    }
+                }
+            }
+        }
+        System.out.print(count);
+    }
+}
