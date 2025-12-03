@@ -1,0 +1,21 @@
+//HashMap으로 풀 수 있지만 배열로도 풀리는 문제!
+import java.util.*;
+import java.io.*;
+class Solution {
+    public String solution(String[] participant, String[] completion) {
+        Arrays.sort(participant);
+        Arrays.sort(completion);
+        String answer ="";
+        for(int i =0;i<completion.length;i++){
+            if(!participant[i].equals(completion[i])){
+                answer = participant[i];
+                break;
+            }
+        }
+        if(answer.equals("")){
+            answer = participant[participant.length-1];
+        }
+        return answer;
+        
+    }
+}
