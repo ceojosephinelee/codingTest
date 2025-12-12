@@ -1,0 +1,54 @@
+import java.io.*;
+import java.util.*;
+ 
+public class Main {
+    static int[][] arr;
+    static int[] dx = {1,0,-1,0};
+    static int[] dy = {0,1,0,-1};
+    static boolean[][] visited;
+    static int count;
+    static int n;
+    static ArrayList<Integer> result;
+	public static void main(String[] args) throws IOException {
+        
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+ 		n = Integer.parseInt(br.readLine());
+        arr = new int[n][n];
+        visited = new boolean[n][n];
+        result = new ArrayList<>();
+        for(int i =0;i<n;i++){
+            String str = br.readLine();
+            for(int j =0;j<n;j++){
+                arr[i][j]=str.charAt(j)-'0';//정수화
+            }
+        }
+        for(int i =0;i<n;i++){
+            for(int j =0;j<n;j++){
+                if(arr[i][j]==1 && !visited[i][j]){
+                    count =1;
+                    dfs(i,j);
+                    result.add(count);
+                }
+            }
+        }
+        System.out.println(result.size());
+        Collections.sort(result);
+        for(int i:result){
+            System.out.println(i);
+        }
+        
+    }
+    static void dfs(int x, int y){
+        visited[x][y]=true;
+        for(int dir=0;dir<4;dir++){
+            int nx = x+dx[dir];
+            int ny = y+dy[dir];
+            //범위를 벗어나거나. 이미 방문했거나. 0인 경우 제외하면 dfs 실행
+            if(nx>=0 && nx<n && ny>=0 &&ny<n && !visited[nx][ny] && arr[nx][ny]==1){
+                count++;
+                dfs(nx,ny);
+            }
+        }
+    }
+}
