@@ -1,0 +1,48 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static int[][] arr;
+    static int[][] visited;
+    static int[] dx = {1,0,-1,0};
+    static int[] dy = {0,1,0,-1};
+    static int N, M;
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        String str = br.readLine();
+        StringTokenizer st = new StringTokenizer(str," ");
+        N = Integer.parseInt(st.nextToken()); //행
+        M = Integer.parseInt(st.nextToken()); //열
+        arr = new int[N][M];
+        visited = new int[N][M];
+
+        for(int i =0;i<N;i++){
+            String s = br.readLine();
+            for(int j =0;j<M;j++){
+                arr[i][j]= s.charAt(j)-'0';
+            }
+        }
+        bfs(0,0);
+        System.out.println(visited[N-1][M-1]);
+    }
+    static void bfs(int a, int b){
+        Queue<int[]> q = new LinkedList<>();
+        q.add(new int[]{a,b});
+        visited[a][b]=1;
+        while(!q.isEmpty()){
+                int[] now = q.poll();
+                int x = now[0],y = now[1];
+                for(int dir =0;dir<4;dir++){
+                    int nx = x+dx[dir];
+                    int ny = y+dy[dir];
+                    if(nx>=0 && ny >=0 && nx <N && ny<M && visited[nx][ny]==0 && arr[nx][ny]==1){
+                        visited[nx][ny]= visited[x][y]+1;
+                        q.add(new int[]{nx,ny});
+
+                    }
+                }
+        }
+    }
+}
