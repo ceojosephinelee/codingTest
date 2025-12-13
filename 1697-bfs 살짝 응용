@@ -1,0 +1,39 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static int[] visited;
+    static int e;
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        int s = Integer.parseInt(st.nextToken()); //정점
+        e = Integer.parseInt(st.nextToken()); //간선
+        visited = new int[100001];//1차원 좌표 범위..?
+        bfs(s);
+        System.out.println(visited[e]);
+
+    }
+    static void bfs(int n){
+        Queue<Integer> q = new LinkedList<>();
+        q.add(n);
+        visited[n] = 0;
+        while(!q.isEmpty()){
+            int cur = q.poll();
+            if (cur == e) { // add할 때가 아니라 poll할 때 반환하는 이유: visited배열 값 추가 후 반환하기 위해.
+                return;
+            }
+            //cur+1, cur-1, 2*cur
+            int[] move = {cur+1,cur-1,cur*2};
+            for(int i : move){
+                if(i>=0 && i<=100000 && visited[i]==0 && i!=n){
+                    visited[i] = visited[cur]+1;
+                    q.add(i);
+                }
+            }
+
+        }
+
+    }
+}
