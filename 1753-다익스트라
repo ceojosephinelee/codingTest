@@ -1,0 +1,80 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static int V,E,K;
+    //자료구조 선언.
+    public static int distance[];
+    public static boolean[] visited;
+    public static ArrayList<Edge> list[];
+    public static PriorityQueue<Edge> q =new PriorityQueue<>();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        V = Integer.parseInt(st.nextToken()); //노드 개수
+        E = Integer.parseInt(st.nextToken()); //간선 개수
+        K = Integer.parseInt(br.readLine()); //출발 노드 번호
+        distance = new int[V+1]; //거리 배열
+        visited = new boolean[V+1]; //방문 배열
+        list = new ArrayList[V+1]; //인접 리스트
+
+        //인접리스트에 에지 정보 저장
+        for (int i = 1; i <= V; i++) { //인접리스트 초기화
+            list[i] = new ArrayList<Edge>();
+        }
+        //거리배열 충분히 큰 수로 초기화
+        for(int i = 1; i <= V; i++) { //범위 0부터...?
+            distance[i] = Integer.MAX_VALUE; //distance[2]이면
+        }
+        for(int i = 0; i < E; i++) { //가중치가 있는 인접리스트 초기화
+            st = new StringTokenizer(br.readLine()," ");
+            int u = Integer.parseInt(st.nextToken());//시작
+            int v = Integer.parseInt(st.nextToken());   //도착
+            int w = Integer.parseInt(st.nextToken()); //가중치
+            list[u].add(new Edge(v,w));
+        }
+        //다익스트라 알고리즘 실행
+        //출발노드 우선순위큐에 넣기
+        q.add(new Edge(K,0));
+        distance[K] = 0;//시작노드 거리 배열 0으로 초기화
+        while(!q.isEmpty()) { //모든 노드가 사용될 때까지
+            Edge cur = q.poll(); // 어디로부터 거리가 최소인 노드를 선택한거지?
+            int cv = cur.vertex;
+            if(visited[cv]) {continue;}; //현재 노드 방문 배열인지 체크 후 방문배열로 업데이트
+            visited[cv] = true;
+            //현재 노드의 에지 개수만큼 반복-> 방문하지 않은 노드 && 현재노드 최단거리+가중치 < 타깃노드 최단거리->타깃노드 최단거리 업데이트 후 우선순위 큐에 타깃노드 추가
+            for(int i = 0; i < list[cv].size(); i++) { //현재 선택된 노드의 에지 개수
+                Edge tmp = list[cv].get(i);
+                int next = tmp.vertex;
+                int value = tmp.value;
+                if(distance[next]>distance[cv]+value) {
+                    distance[next]=distance[cv]+value;//갱신
+                    q.add(new Edge(next, distance[next]));//수정될 리 없음
+                }
+            }
+        }
+        //거리 배열 출력
+        for(int i = 1; i <= V; i++) {
+            if(visited[i]){
+                System.out.println(distance[i]);
+            }else{
+                System.out.println("INF");
+            }
+        }
+    }
+    //에지 클래스 정의& 우선순위 큐 정렬 기준(가중치로!)설정
+    static class Edge implements Comparable<Edge>{
+        int vertex, value;
+        Edge(int vertex, int value){ //생성자
+            this.vertex = vertex;
+            this.value = value;
+        }
+        public int compareTo(Edge e){ //우선순위 큐 정렬 기준은 가중치!
+            if(this.value > e.value){
+                return 1;
+            }else{
+                return -1;
+            }
+        }
+    }
+}
