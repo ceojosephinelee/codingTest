@@ -1,0 +1,33 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        //인접행렬 형태 최단 거리. 싸이클 상관x.-->플루이드 워셜
+        int n = Integer.parseInt(br.readLine());
+        int[][] dis = new int[n+1][n+1];
+        for (int i = 1; i <= n; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine()," ");
+            for (int j = 1; j <= n; j++) {
+                dis[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
+        for(int k = 1; k <= n; k++){
+            for(int i = 1; i <= n; i++){
+                for(int j = 1; j <= n; j++){
+                    if(dis[i][k]==1 && dis[k][j]==1){
+                        dis[i][j] = 1;
+                    }
+                }
+            }
+        }
+        for(int i = 1; i <= n; i++){
+            for(int j = 1; j <= n; j++){
+                System.out.print(dis[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
+}
