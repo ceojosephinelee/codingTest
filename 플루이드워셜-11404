@@ -1,0 +1,49 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static int[][] dis;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());//도시-노드 개수
+        int M = Integer.parseInt(br.readLine()); // 노선 개수
+        dis = new int[N+1][N+1];
+        for (int i = 1; i <= N; i++) { //인접행렬 초기화
+            for (int j = 1; j <= N; j++) {
+                if(i==j){
+                    dis[i][j] = 0;
+                }else{
+                    dis[i][j]=10000001;//문제에서 주어진 조건 잘 읽기. 무한대해도 상관은 없을듯?
+                }
+            }
+        }
+        for(int i=0;i<M;i++){
+            StringTokenizer st = new StringTokenizer(br.readLine()," ");
+            int s = Integer.parseInt(st.nextToken());
+            int e = Integer.parseInt(st.nextToken());
+            int v = Integer.parseInt(st.nextToken());
+            if(dis[s][e]>v){dis[s][e]=v;}//시작도시,도착도시를 연결하는 버스는 여러 개일 수 있다는 문제 조건
+        }
+        //플루이드워셜
+        for(int k=1;k<=N;k++){
+            for(int i=1;i<=N;i++){
+                for(int j=1;j<=N;j++){
+                    if(dis[i][j]>dis[i][k] + dis[k][j]){
+                        dis[i][j]=dis[i][k] + dis[k][j];
+                    }
+                }
+                
+            }
+        }
+        for(int i=1;i<=N;i++){
+            for(int j=1;j<=N;j++){
+                if(dis[i][j]==10000001){
+                    System.out.print("0");
+                }else{
+                    System.out.print(dis[i][j]+" ");
+                }
+            }
+            System.out.println();
+        }
+    }
+}
