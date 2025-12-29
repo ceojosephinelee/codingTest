@@ -1,0 +1,55 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        //인접행렬 형태 최단 거리. 싸이클 상관x.-->플루이드 워셜
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        int n = Integer.parseInt(st.nextToken());//사람 수
+        int m = Integer.parseInt(st.nextToken());//관계 수
+        int[][] dis = new int[n+1][n+1]; //가중치 1이라고 두기.
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                if(i==j){
+                    dis[i][j] = 0;
+                }else{
+                    dis[i][j] = Integer.MAX_VALUE; //무한대 말고 문제 범위상 제일 큰 수로 하는 게 편함
+                }
+            }
+        }
+        for (int i = 0; i < m; i++) {
+            st = new StringTokenizer(br.readLine()," ");
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            dis[a][b] = 1;
+            dis[b][a] = 1;//무방향.양방향 그래프
+        }
+        //플루이드 워셜
+        for(int k = 1; k <= n; k++){
+            for(int i = 1; i <= n; i++){
+                for(int j = 1; j <= n; j++){
+                    if(dis[i][k]!=Integer.MAX_VALUE && dis[k][j]!=Integer.MAX_VALUE && dis[i][j]>dis[i][k]+dis[k][j]){//이 조건 필수!!
+                        dis[i][j]=dis[i][k]+dis[k][j];
+                    }
+                }
+            }
+        }
+        //케빈 베이컨의 수가 가장 작은 인덱스 탐색
+        int idx =0;
+        int min = Integer.MAX_VALUE;
+        for(int i = 1; i <= n; i++){
+            int total = 0;
+
+            for(int j = 1; j <= n; j++){
+                total += dis[i][j];
+            }
+            if(total<min){
+                min = total;
+                idx = i;
+            }
+        }
+        System.out.println(idx);
+    }
+}
