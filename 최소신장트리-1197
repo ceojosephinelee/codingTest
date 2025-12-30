@@ -1,0 +1,67 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static int[] parent;
+    static int find(int x){
+        if(parent[x]==x){
+            return x;
+        }else{
+            return parent[x]=find(parent[x]); //?
+        }
+    }
+    static boolean union(int x,int y){
+        if(find(x)==find(y)){
+            return false;
+        }else{
+            parent[find(y)]=find(x);//왜 이렇게 합침? 걍 그렇다
+            return true;
+        }
+    }
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        int n = Integer.parseInt(st.nextToken()); //노드 개수
+        int m = Integer.parseInt(st.nextToken()); //에지 개수
+        ArrayList<Edge> edges = new ArrayList<>();
+        for (int i = 0; i < m; i++) {//간선 인접리스트에 입력 받기
+            st = new StringTokenizer(br.readLine()," ");
+            int s = Integer.parseInt(st.nextToken());
+            int e = Integer.parseInt(st.nextToken());
+            long v = Integer.parseInt(st.nextToken());
+            edges.add(new Edge(s, e, v));
+        }
+        Collections.sort(edges);
+        //uion-find
+        parent = new int[n+1];
+        for (int i = 1; i <= n; i++) {
+            parent[i] = i;//초기화
+        }
+        long total = 0;//답
+        int count = 0;//선택한 간선 수
+        for(Edge e : edges) {
+            if(union(e.start,e.end)){
+                count++;
+                total+=e.value;
+            }
+            if(count == n-1){
+                break;
+            }
+        }
+        System.out.println(total);
+    }
+    static class Edge implements Comparable<Edge> {
+        int start;
+        int end;
+        long value;
+        public Edge(int start, int end, long value) {
+            this.start = start;
+            this.end = end;
+            this.value = value;
+        }
+        public int compareTo(Edge o) {//가중치 기준으로 오름차순 정렬
+            return Long.compare(this.value, o.value); //오보플로우 위험 줄어듦....?(뺄셈 연산을 하지 않으므로)
+        }
+
+    }
+}
