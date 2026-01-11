@@ -1,0 +1,56 @@
+import java.io.*;
+import java.util.*;
+public class Main {
+
+    static int a,b;
+    static char[][] arr;
+    static int[] dx = {1,0,-1,0};
+    static int[] dy = {0,1,0,-1};
+    static int[][] visited;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
+        a = Integer.parseInt(st.nextToken());
+        b = Integer.parseInt(st.nextToken());
+        arr = new char[a][b];
+        for(int i =0;i<a;i++){
+            String s = br.readLine();
+            for(int j=0;j<b;j++){
+                arr[i][j]=s.charAt(j);
+            }
+        }
+        int max =0;
+        for(int i =0;i<a;i++){
+            for(int j=0;j<b;j++){
+                if(arr[i][j]=='L'){
+                    visited= new int[a][b];//bfs 시작할 때마다 방문배열 초기화
+                    max = Math.max(max, bfs(i,j));
+                }
+            }
+        }
+        System.out.println(max);
+    }
+    static int bfs(int x, int y){
+        Queue<int[]> q = new ArrayDeque<>();
+        q.add(new int[]{x,y});
+
+        visited[x][y]=1;
+        int maxShort = 0;
+        while(!q.isEmpty()){
+            int[] cur = q.poll();
+            int m = cur[0];
+            int n = cur[1];
+            for(int dir=0;dir<4;dir++){
+                int nx = m+dx[dir];
+                int ny = n+dy[dir];
+                if(nx>=0&&nx<a &&ny>=0 && ny<b && arr[nx][ny]=='L' && visited[nx][ny]==0){
+                    visited[nx][ny]=visited[m][n]+1;
+                    maxShort = Math.max(maxShort, visited[nx][ny]-1);//주의!!!칸수가 아니라 이동횟수!!!
+                    q.add(new int[]{nx,ny});
+                }
+            }
+        }
+        return maxShort;
+    }
+
+}
