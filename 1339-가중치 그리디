@@ -1,0 +1,33 @@
+import java.io.*;
+import java.util.*;
+public class Main {
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        int n = Integer.parseInt(br.readLine());
+        String[] words = new String[n];
+        //2차원 배열로 저장?
+        long[] ch = new long[26];
+        for(int i=0;i<n;i++){
+            words[i]=br.readLine();
+
+            for(int j=0;j<words[i].length();j++){
+                ch[words[i].charAt(j)-'A']+= (int)Math.pow(10, words[i].length()-j-1);
+            }
+        }
+        //가중치 계산 후 가중치 정렬 후 9부터 곱하기
+        Arrays.sort(ch);
+        int num=9;
+        int i=25;
+        long sum =0;
+        while(num>=0){
+            if(ch[i]!=0){
+                sum+=ch[i]*num;
+            }
+            num--;
+            i--;
+        }
+        System.out.println(sum);
+    }
+}
